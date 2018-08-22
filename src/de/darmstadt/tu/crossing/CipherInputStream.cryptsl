@@ -1,0 +1,30 @@
+SPEC javax.crypto.CipherInputStream
+OBJECTS
+    byte[] b;
+    int off;
+    int len;
+    long n;
+    java.io.InputStream is;
+    javax.crypto.Cipher c;
+
+EVENTS
+    c1: CipherInputStream(is, c);
+
+    r1: read();
+    r2: read(b);
+    r3: read(b, off, len);
+    Reads := r1 | r2 | r3;
+
+    c: close();
+
+FORBIDDEN
+    CipherInputStream(is) => c1;
+
+ORDER
+    c1, Reads, c
+
+CONSTRAINTS
+    len > off;
+
+ENSURES
+    cipheredInputStream[is, c] after Inits in javax.crypto.Cipher;
