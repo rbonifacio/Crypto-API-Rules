@@ -1,6 +1,5 @@
 SPEC java.security.DigestInputStream
 OBJECTS
-    boolean on;
     byte[] b;
     int off;
     int len;
@@ -17,7 +16,7 @@ EVENTS
     c: close();
 
 FORBIDDEN
-    on(on);
+    on(boolean);
 
 ORDER
     c1, Reads, c

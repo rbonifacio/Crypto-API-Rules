@@ -18,7 +18,7 @@ EVENTS
     c: close();
 
 ORDER
-    c1, Writes, c
+    c1, Writes+, c
 
 CONSTRAINTS
     len > off;
