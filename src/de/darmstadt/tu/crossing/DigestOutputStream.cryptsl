@@ -11,10 +11,6 @@ OBJECTS
 EVENTS
     c1: DigestOutputStream(os, md);
 
-    g: md = getMessageDigest();
-
-    o: on(on);
-
     w1: write(b);
     w2: write(byte, off, len);
     Writes := w1 | w2;
@@ -22,10 +18,10 @@ EVENTS
     c: close();
 
 FORBIDDEN
-    o;
+    on(on);
 
 ORDER
-    c1, g*, Writes, g, c
+    c1, Writes, c
 
 CONSTRAINTS
     len > off;

@@ -10,10 +10,6 @@ OBJECTS
 EVENTS
     c1: DigestInputStream(is, md);
 
-    g: md = getMessageDigest();
-
-    o: on(on);
-
     r1: read();
     r2: read(b, off, len);
     Reads := r1 | r2;
@@ -21,10 +17,10 @@ EVENTS
     c: close();
 
 FORBIDDEN
-    o;
+    on(on);
 
 ORDER
-    c1, g*, Reads, g, c
+    c1, Reads, c
 
 CONSTRAINTS
     len > off;

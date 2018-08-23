@@ -4,7 +4,6 @@ OBJECTS
     int off;
     int len;
     int b;
-    long n;
     java.io.OutputStream os;
     javax.crypto.Cipher c;
 
@@ -18,14 +17,14 @@ EVENTS
 
     c: close();
 
-FORBIDDEN
-    CipherOutputStream(os) => c1;
-
 ORDER
     c1, Writes, c
 
 CONSTRAINTS
     len > off;
 
+REQUIRES
+    initializedCipher[c];
+
 ENSURES
-    cipheredOutputStream[os, c] after Inits in javax.crypto.Cipher;
+    cipheredOutputStream[os, c];

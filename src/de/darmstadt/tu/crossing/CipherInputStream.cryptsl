@@ -3,7 +3,6 @@ OBJECTS
     byte[] b;
     int off;
     int len;
-    long n;
     java.io.InputStream is;
     javax.crypto.Cipher c;
 
@@ -17,14 +16,14 @@ EVENTS
 
     c: close();
 
-FORBIDDEN
-    CipherInputStream(is) => c1;
-
 ORDER
-    c1, Reads, c
+    c1, Reads+, c
 
 CONSTRAINTS
     len > off;
 
+REQUIRES
+    initializedCipher[c];
+
 ENSURES
-    cipheredInputStream[is, c] after Inits in javax.crypto.Cipher;
+    cipheredInputStream[is, c];
