@@ -8,7 +8,9 @@ OBJECTS
     javax.crypto.Cipher c;
 
 EVENTS
-    c1: CipherOutputStream(os, c)
+    c1: CipherOutputStream(os, c);
+    c2: CipherOutputStream(os);
+    Constructs := c1 | c2;
 
     w1: write(b);
     w2: read(byte);
@@ -18,7 +20,7 @@ EVENTS
     c: close();
 
 ORDER
-    c1, Writes+, c
+    Constructs, Writes+, c
 
 CONSTRAINTS
     len > off;

@@ -8,6 +8,8 @@ OBJECTS
 
 EVENTS
     c1: CipherInputStream(is, c);
+    c2: CipherInputStream(is);
+    Constructs := c1 | c2;
 
     r1: read();
     r2: read(b);
@@ -17,7 +19,7 @@ EVENTS
     c: close();
 
 ORDER
-    c1, Reads+, c
+    Constructs, Reads+, c
 
 CONSTRAINTS
     len > off;
