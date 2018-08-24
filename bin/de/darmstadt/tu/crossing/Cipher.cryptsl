@@ -6,26 +6,26 @@ OBJECTS
     java.security.cert.Certificate cert;
     java.security.spec.AlgorithmParameterSpec params;
     java.security.AlgorithmParameters param;
-    
+
     int pre_plain_off;
     int pre_ciphertext_off;
     int plain_off;
     int ciphertext_off;
-    
+
     int pre_len;
     int len;
-    
+
     byte[] pre_plaintext;
     byte[] pre_ciphertext;
     java.nio.ByteBuffer pre_plainBuffer;
 	java.nio.ByteBuffer pre_cipherBuffer;
-	
-    
+
+
     byte[] plainText;
     byte[] cipherText;
 	java.nio.ByteBuffer plainBuffer;
 	java.nio.ByteBuffer cipherBuffer;
-	
+
 	java.security.SecureRandom ranGen;
 
 EVENTS
@@ -61,9 +61,9 @@ EVENTS
     f7: doFinal(plainBuffer, cipherBuffer);
     FINWOU := f2 | f4 | f5 | f6 | f7;
     DOFINALS := FINWOU | f1 | f3;
-    
+
     iv: getIV();
-    
+
 ORDER
     Gets, Inits, (FINWOU | (updates+, DOFINALS))+
 
@@ -79,10 +79,10 @@ CONSTRAINTS
 
     part(0, "/", transformation) in {"AES", "Blowfish"} && part(1, "/", transformation) in {"CBC", "PCBC"} => part(2, "/", transformation) in {"", "PKCS7Padding", "PKCS5Padding", "ISO10126Padding"};
     part(0, "/", transformation) in {"AES", "Blowfish"} && part(1, "/", transformation) in {"GCM", "CTR", "CFB", "OFB"} => part(2, "/", transformation) in {"NoPadding"};
-	
+
 	part(1, "/", transformation) in {"CBC", "PCBC", "CTR", "CTS", "CFB", "OFB"} && encmode != 1 => noCallTo(IWOIV) ;
-    part(1, "/", transformation) in {"CBC", "PCBC", "CTR", "CTS", "CFB", "OFB"} && encmode == 1 => callTo(iv) ;     
-    
+    part(1, "/", transformation) in {"CBC", "PCBC", "CTR", "CTS", "CFB", "OFB"} && encmode == 1 => callTo(iv) ;
+
     encmode in {1,2,3,4};
     length(pre_plaintext) >= pre_plain_off + len;
     length(pre_ciphertext) <= pre_ciphertext_off;
@@ -96,8 +96,9 @@ REQUIRES
     !macced[_, plainText];
 	part(1, "/", transformation) in {"CBC", "PCBC", "CTR", "CTS", "CFB", "OFB"} && encmode == 1 => preparedIV[params];
 	part(1, "/", transformation) in {"GCM"} => preparedGCM[params];
-	
+
 ENSURES
-	encrypted[pre_ciphertext, pre_plaintext] after updates; 
+  	initializedCipher[this] after Inits;
+	encrypted[pre_ciphertext, pre_plaintext] after updates;
 	encrypted[cipherText, plainText];
 	encrypted[cipherBuffer, plainBuffer];

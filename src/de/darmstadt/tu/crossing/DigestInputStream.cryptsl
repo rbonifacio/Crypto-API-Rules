@@ -5,7 +5,7 @@ OBJECTS
     int len;
     java.io.InputStream is;
     java.security.MessageDigest md;
-
+    
 EVENTS
     c1: DigestInputStream(is, md);
 
@@ -15,11 +15,12 @@ EVENTS
 
     c: close();
 
+ORDER
+    c1, Reads, c
+
 FORBIDDEN
     on(boolean);
 
-ORDER
-    c1, Reads, c
 
 CONSTRAINTS
     len > off;

@@ -13,8 +13,8 @@ EVENTS
     Constructs := c1 | c2;
 
     w1: write(b);
-    w2: read(byte);
-    w3: read(byte, off, len);
+    w2: write(byte);
+    w3: write(byte, off, len);
     Writes := w1 | w2 | w3;
 
     c: close();
