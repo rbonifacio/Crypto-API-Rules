@@ -7,6 +7,9 @@ OBJECTS
     java.io.OutputStream os;
     java.security.MessageDigest md;
 
+FORBIDDEN
+    on(boolean) ;
+
 EVENTS
     c1: DigestOutputStream(os, md);
 
@@ -18,9 +21,6 @@ EVENTS
 
 ORDER
     c1, Writes, c
-
-FORBIDDEN
-    on(boolean);
 
 CONSTRAINTS
     len > off;

@@ -6,6 +6,9 @@ OBJECTS
     java.io.InputStream is;
     java.security.MessageDigest md;
     
+FORBIDDEN
+    on(boolean) ;
+    
 EVENTS
     c1: DigestInputStream(is, md);
 
@@ -17,10 +20,6 @@ EVENTS
 
 ORDER
     c1, Reads, c
-
-FORBIDDEN
-    on(boolean);
-
 
 CONSTRAINTS
     len > off;
