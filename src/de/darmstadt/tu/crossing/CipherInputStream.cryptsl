@@ -4,13 +4,11 @@ OBJECTS
     int off;
     int len;
     java.io.InputStream is;
-    javax.crypto.Cipher c;
+    javax.crypto.Cipher ciph;
 
 EVENTS
-    c1: CipherInputStream(is, c);
-    c2: CipherInputStream(is);
-    Constructs := c1 | c2;
-
+    c1: CipherInputStream(is, ciph);
+    
     r1: read();
     r2: read(b);
     r3: read(b, off, len);
@@ -19,13 +17,13 @@ EVENTS
     c: close();
 
 ORDER
-    Constructs, Reads+, c
+    c1, Reads+, c
 
 CONSTRAINTS
     len > off;
 
 REQUIRES
-    initializedCipher[c];
+    initializedCipher[ciph];
 
 ENSURES
-    cipheredInputStream[is, c];
+    cipheredInputStream[is, ciph];

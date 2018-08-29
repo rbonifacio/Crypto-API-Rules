@@ -5,13 +5,11 @@ OBJECTS
     int len;
     int b;
     java.io.OutputStream os;
-    javax.crypto.Cipher c;
+    javax.crypto.Cipher ciph;
 
 EVENTS
-    c1: CipherOutputStream(os, c);
-    c2: CipherOutputStream(os);
-    Constructs := c1 | c2;
-
+    c1: CipherOutputStream(os, ciph);
+    
     w1: write(b);
     w2: write(byte);
     w3: write(byte, off, len);
@@ -20,13 +18,13 @@ EVENTS
     c: close();
 
 ORDER
-    Constructs, Writes+, c
+    c1, Writes+, c
 
 CONSTRAINTS
     len > off;
 
 REQUIRES
-    initializedCipher[c];
+    initializedCipher[ciph];
 
 ENSURES
-    cipheredOutputStream[os, c];
+    cipheredOutputStream[os, ciph];
