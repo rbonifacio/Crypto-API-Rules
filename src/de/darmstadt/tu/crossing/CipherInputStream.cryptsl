@@ -23,7 +23,7 @@ CONSTRAINTS
     len > off;
 
 REQUIRES
-    initializedCipher[ciph];
+    initializedCipherDecryptMode[ciph];
 
 ENSURES
     cipheredInputStream[is, ciph];

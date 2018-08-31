@@ -98,6 +98,8 @@ REQUIRES
 	part(1, "/", transformation) in {"GCM"} => preparedGCM[params];
 
 ENSURES
+	encmode == 1 => initializedCipherEncryptMode[this] after Inits;
+    encmode == 2 => initializedCipherDecryptMode[this] after Inits;
   	initializedCipher[this] after Inits;
 	encrypted[pre_ciphertext, pre_plaintext] after updates;
 	encrypted[cipherText, plainText];

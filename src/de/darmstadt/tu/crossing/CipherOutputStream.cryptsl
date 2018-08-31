@@ -24,7 +24,7 @@ CONSTRAINTS
     len > off;
 
 REQUIRES
-    initializedCipher[ciph];
+    initializedCipherEncryptMode[ciph];
 
 ENSURES
     cipheredOutputStream[os, ciph];
